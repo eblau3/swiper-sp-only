@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+  />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <style>
+    * {
+      margin: unset;
+      padding: unset;
+      box-sizing: border-box;
+    }
+    img {
+      width: 100%;
+      height: auto;
+      line-height: 1;
+    }
+    .container {
+      max-width: 1200px;
+      width: 100%;
+      margin-right: auto;
+      margin-left: auto;
+    }
+    .swiper.is-remove .swiper-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .swiper.is-remove .swiper-slide {
+      width: 25%;
+    }
+
+    .swiper.is-remove .swiper-button-prev,
+    .swiper.is-remove .swiper-button-next {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <div class="swiper js-swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="https://placehold.jp/500x300.png"></div>
+        <div class="swiper-slide"><img src="https://placehold.jp/500x300.png"></div>
+        <div class="swiper-slide"><img src="https://placehold.jp/500x300.png"></div>
+        <div class="swiper-slide"><img src="https://placehold.jp/500x300.png"></div>
+      </div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+    </div>
+
+  </div>
+  
+
+  <script>
+    const swiperDom = document.querySelector('.js-swiper');
+    let swiper;
+
+    const creatSwiper = () => {
+      swiper = new Swiper(swiperDom, {
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+      });
+    };
+
+    const destroySwiper = () => {
+      if(swiper) {
+        swiper.destroy(false, true);
+        swiper = null;
+      };
+    };
+
+    const checkMediaQuery = (event) => {
+      if(event.matches) {
+        creatSwiper();
+        swiperDom.classList.remove('is-remove');
+      } else {
+        destroySwiper();
+        swiperDom.classList.add('is-remove');
+      };
+    };
+
+    const mediaQuery = window.matchMedia('(max-width: 440px)');
+
+    window.addEventListener('load', () => checkMediaQuery(mediaQuery));
+    mediaQuery.addEventListener('change', checkMediaQuery);
+  </script>
+</body>
+</html>
